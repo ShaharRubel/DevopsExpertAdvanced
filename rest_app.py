@@ -1,9 +1,16 @@
 from flask import Flask, request, jsonify
 from db_connector import connect_db
 import datetime
-
+import os
+import signal
 app = Flask(__name__)
 
+
+@app.route('/stop_server')
+def stop_server():
+    # kill flask process
+    os.kill(os.getpid(), signal.CTRL_C_EVENT)
+    return 'Server stopped'
 
 @app.route('/')
 def hello_world():
@@ -110,4 +117,4 @@ def users_delete(id):
 if __name__ == '__main__':
 
 
-    app.run()
+    app.run(host='0.0.0.0', debug=True, port=5000)

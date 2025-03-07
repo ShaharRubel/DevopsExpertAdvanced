@@ -14,7 +14,7 @@ def connect_db():
             cursorclass=pymysql.cursors.DictCursor,
             db="DevopsExperts",
             host="mysql-23b9542e-devopsexperts.c.aivencloud.com",
-            password="",
+            password="AVNS_WEPQrf0gLBZxdjuphDx",
             read_timeout=timeout,
             port=26733,
             user="avnadmin",

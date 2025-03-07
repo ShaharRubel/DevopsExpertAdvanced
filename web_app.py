@@ -1,8 +1,16 @@
 from flask import Flask
 from db_connector import connect_db
+import os
+import signal
+
 
 app = Flask(__name__)
 
+@app.route('/stop_server')
+def stop_server():
+    # kill flask process
+    os.kill(os.getpid(), signal.CTRL_C_EVENT)
+    return 'Server stopped'
 
 @app.route('/users/get_user_data/<id>')
 def test(id):
