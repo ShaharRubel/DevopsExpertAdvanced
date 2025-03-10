@@ -1,7 +1,8 @@
-
-
+# Tech Stack
+![image](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue) ![image](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white) ![image](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) ![image](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=Selenium&logoColor=white) ![image](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white)
 # About the project
 The project is a user management API + small frontend  with a mysql database including a jenkins ready pipeline
+
 
 project content as follow:
 - `rest_app.py`: RESTful application and API endpoints definitions
