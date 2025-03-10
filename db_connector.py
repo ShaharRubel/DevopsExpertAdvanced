@@ -24,10 +24,12 @@ def connect_db():
     except Exception as e:
         print(e)
 
-# def create_table():
-#     cursor.execute("CREATE TABLE users (user_id int PRIMARY KEY, user_name varchar(50), creation_date varchar(50));")
-#     connection.commit()
-#     connection.close()
+def create_table():
+    connection = connect_db()
+    cursor = connection.cursor()
+    cursor.execute("CREATE TABLE users (user_id int PRIMARY KEY, user_name varchar(50), creation_date varchar(50));")
+    connection.commit()
+    connection.close( )
 
 
 
@@ -38,6 +40,9 @@ if __name__ == '__main__':
     # cursor.execute("SELECT * FROM DevopsExperts.users;")
     # cursor.execute("DELETE FROM DevopsExperts.users WHERE user_id =1")
     # connection.commit()
+    create_table()
+    cursor.execute("SHOW TABLES")
+    print(cursor.fetchall())
 
 
 
