@@ -2,11 +2,12 @@ pipeline {
 agent any
 environment {
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
+   registryCredential = 'dockerhub_id'
     }
     stages {
         stage("Clone Repo") {
             steps {
-                git([url: 'git@github.com:ShaharRubel/DevopsExpertAdvanced.git', branch: 'main', credentialsId: 'github_repo'])
+                git([url: 'git@github.com:ShaharRubel/DevopsExpertAdvanced.git', branch: 'docker', credentialsId: 'github_repo'])
             }
         }
         stage("Run Backend Server"){
@@ -24,15 +25,20 @@ environment {
                 bat 'python clean_environment.py'
             }
         }
-        stage("Build docker image"){
-            steps{
-                bat 'docker build -t flaskapi .'
-                bat 'docker tag flaskapi darkerlighter/flaskapi:${VERSION}'
-            }
-        }
+//         stage("Build docker image"){
+//             steps{
+//                 bat 'docker build -t flaskapi .'
+//                 bat 'docker tag flaskapi darkerlighter/flaskapi:${VERSION}'
+//             }
+//         }
         stage("Push docker image"){
             steps{
-                REPLACE
+                script {
+                    dockerImage = docker.build "darkerlighter/flaskapi" + ":$BUILD_NUMBER"
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                }
+
             }
         }
         stage("Set Image version"){
