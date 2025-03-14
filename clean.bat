@@ -1,2 +1,2 @@
 docker-compose down
-docker image rmi devopsexpertsadvanced-api
+docker image rmi devopsexpertsadvancedproject-docker-api:latest

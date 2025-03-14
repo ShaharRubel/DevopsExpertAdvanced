@@ -3,6 +3,7 @@ agent any
 environment {
    VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
    registryCredential = 'dockerhub_id'
+   imagename = "darkerlighter/flaskapi"
     }
     stages {
         stage("Clone Repo") {
@@ -25,21 +26,25 @@ environment {
                 bat 'python clean_environment.py'
             }
         }
-//         stage("Build docker image"){
-//             steps{
-//                 bat 'docker build -t flaskapi .'
-//                 bat 'docker tag flaskapi darkerlighter/flaskapi:${VERSION}'
-//             }
-//         }
+        stage("Build docker image"){
+            steps{
+//                 script {
+//                     dockerImage = docker.build "${imagename}:latest"
+//                 }
+                bat 'docker build -t flaskapi .'
+                bat 'docker tag flaskapi darkerlighter/flaskapi:latest'
+            }
+        }
         stage("Push docker image"){
             steps{
                 script {
-                    dockerImage = docker.build "darkerlighter/flaskapi" + ":$BUILD_NUMBER"
-                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-                        dockerImage.push()
-                            }
-                }
+                    withCredentials([usernamePassword(credentialsId: registryCredential, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        bat "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
 
+                        // Push the image
+                        bat "docker push ${imagename}:latest"
+                    }
+                }
             }
         }
         stage("Set Image version"){
