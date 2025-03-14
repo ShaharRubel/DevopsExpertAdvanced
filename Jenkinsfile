@@ -31,8 +31,8 @@ environment {
 //                 script {
 //                     dockerImage = docker.build "${imagename}:latest"
 //                 }
-                bat 'docker build -t flaskapi .'
-                bat 'docker tag flaskapi darkerlighter/flaskapi:latest'
+                bat "docker build -t flaskapi ."
+                bat "docker tag flaskapi ${imagename}:${BUILD_NUMBER}"
             }
         }
         stage("Push docker image"){
@@ -42,7 +42,7 @@ environment {
                         bat "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
 
                         // Push the image
-                        bat "docker push ${imagename}:latest"
+                        bat "docker push ${imagename}:${BUILD_NUMBER}"
                     }
                 }
             }
@@ -65,6 +65,7 @@ environment {
         stage("Clean Environment docker"){
             steps{
                 bat 'clean.bat'
+                bat "docker image rmi darkerlighter/flaskapi:${BUILD_NUMBER}"
             }
         }
     }
