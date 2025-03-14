@@ -35,7 +35,7 @@ environment {
             steps{
                 script {
                     dockerImage = docker.build "darkerlighter/flaskapi" + ":$BUILD_NUMBER"
-                    docker.withRegistry( '', registryCredential ) {
+                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
                         dockerImage.push()
                             }
                 }
