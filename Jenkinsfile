@@ -1,7 +1,6 @@
 pipeline {
 agent any
 environment {
-   VERSION = "${env.BUILD_ID}-${env.GIT_COMMIT}"
    registryCredential = 'dockerhub_id'
    imagename = "darkerlighter/flaskapi"
     }
@@ -28,9 +27,6 @@ environment {
         }
         stage("Build docker image"){
             steps{
-//                 script {
-//                     dockerImage = docker.build "${imagename}:latest"
-//                 }
                 bat "docker build -t flaskapi ."
                 bat "docker tag flaskapi ${imagename}:${BUILD_NUMBER}"
             }
@@ -49,7 +45,7 @@ environment {
         }
         stage("Set Image version"){
             steps{
-                bat 'echo IMAGE_TAG=${BUILD_NUMBER} > .env'
+                bat "echo IMAGE_TAG=${BUILD_NUMBER} > .env"
             }
         }
         stage("Deploy application with docker compose"){
