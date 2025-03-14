@@ -37,6 +37,7 @@ environment {
                     dockerImage = docker.build "darkerlighter/flaskapi" + ":$BUILD_NUMBER"
                     docker.withRegistry( '', registryCredential ) {
                         dockerImage.push()
+                            }
                 }
 
             }
