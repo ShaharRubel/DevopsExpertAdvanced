@@ -7,7 +7,7 @@ environment {
     stages {
         stage("Clone Repo") {
             steps {
-                git([url: 'git@github.com:ShaharRubel/DevopsExpertAdvanced.git', branch: 'docker', credentialsId: 'github_repo'])
+                git([url: 'git@github.com:ShaharRubel/DevopsExpertAdvanced.git', branch: 'main', credentialsId: 'github_repo'])
             }
         }
         stage("Run Backend Server"){
