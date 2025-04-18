@@ -69,11 +69,11 @@ environment {
                 bat "helm install mywebapp flaskapi --set imageName=${imagename}:${BUILD_NUMBER}"
             }
         }
-        stage("Write minikube url to file"){
-            steps{
-                bat "minikube service flaskapi-service --url > k8_url.txt"
-            }
-        }
+//         stage("Write minikube url to file"){
+//             steps{
+//                 bat "minikube service flaskapi-service --url > k8_url.txt"
+//             }
+//         }
         stage("run k8 backend testing"){
             steps{
                 bat "python K8S_backend_testing.py"
