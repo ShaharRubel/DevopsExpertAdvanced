@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flaskapi
+spec:
+  replicas: {{ .Values.repCount }}
+  selector:
+    matchLabels:
+      app: flaskapi
+  template:
+    metadata:
+      labels:
+        app: flaskapi
+    spec:
+      containers:
+      - name: flaskapi
+        image: {{ .Values.imageName }}
+        ports:
+        - containerPort: 5000

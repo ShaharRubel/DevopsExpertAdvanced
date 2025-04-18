@@ -1,0 +1,4 @@
+repCount: 5
+imageName: darkerlighter/flaskapi
+
+serviceType: LoadBalancer
