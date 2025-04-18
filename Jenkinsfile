@@ -66,7 +66,7 @@ environment {
         }
         stage("Deploy Helm chart"){
             steps{
-                bat "helm install mywebapp flaskapi –-set imageName=${imagename}:${BUILD_NUMBER}"
+                bat "helm install mywebapp flaskapi --set imageName=${imagename}:${BUILD_NUMBER}"
             }
         }
         stage("Write minikube url to file"){
